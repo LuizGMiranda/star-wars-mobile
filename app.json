@@ -1,0 +1,12 @@
+{
+  "name": "setta",
+  "displayName": "setta",
+  "expo": {
+    "name": "setta",
+    "slug": "setta",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
