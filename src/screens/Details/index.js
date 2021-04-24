@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import Header from "../../components/Header"
+import Header from "../../components/Header";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { getById, getFavoritesStorage, removeFavoritesStorageById, setFavoriteStorage} from "../../services/people";
+import {
+  getById,
+  getFavoritesStorage,
+  removeFavoritesStorageById,
+  setFavoriteStorage,
+} from "../../services/people";
 
 export default function Details({ route, navigation }) {
-  const { id } = route.params
+  const { id } = route.params;
   const [cachracter, setCachracter] = useState();
   const [favorite, setFavorite] = useState(false);
 
@@ -16,46 +21,45 @@ export default function Details({ route, navigation }) {
       const results = await getById(id);
       setCachracter(results);
 
-      const data = await getFavoritesStorage()
-      if(data.includes(parseInt(id))){
-        setFavorite(true)
+      const data = await getFavoritesStorage();
+      if (data.includes(parseInt(id))) {
+        setFavorite(true);
       }
     }
-    setCachracter()
-    setFavorite(false)
+    setCachracter();
+    setFavorite(false);
     fetch();
 
-    return function cleanup () {
-      setCachracter()
-      console.log('unmoint id');
-    }
+    return function cleanup() {
+      setCachracter();
+    };
   }, [id]);
 
   function handleHeight(heigth) {
-    return heigth/100
+    return heigth / 100;
   }
 
   function handleGender(gender) {
     switch (gender) {
-      case 'n/a':
-        return 'Não especificado'
-      case 'male':
-        return 'Masculino'
-      case 'female':
-        return 'Feminino'
+      case "n/a":
+        return "Não especificado";
+      case "male":
+        return "Masculino";
+      case "female":
+        return "Feminino";
       default:
-        return 'Não especificado'
+        return "Não especificado";
     }
   }
 
   async function handleFavorite() {
-    if(!favorite) {
-      setFavorite(true)
-      setFavoriteStorage(id)
-      return
-    } 
-    removeFavoritesStorageById(id)
-    setFavorite(false)
+    if (!favorite) {
+      setFavorite(true);
+      setFavoriteStorage(id);
+      return;
+    }
+    removeFavoritesStorageById(id);
+    setFavorite(false);
   }
 
   if (!!!cachracter) {
@@ -72,7 +76,9 @@ export default function Details({ route, navigation }) {
       <View style={styles.containerDetails}>
         <View styles={styles.boxDetail}>
           <Text style={styles.detailsTitle}>Altura</Text>
-          <Text style={styles.detailsDescription}>{handleHeight(cachracter.height)}m</Text>
+          <Text style={styles.detailsDescription}>
+            {handleHeight(cachracter.height)}m
+          </Text>
         </View>
         <View styles={styles.boxDetail}>
           <Text style={styles.detailsTitle}>Peso</Text>
@@ -80,16 +86,16 @@ export default function Details({ route, navigation }) {
         </View>
         <View styles={styles.boxDetail}>
           <Text style={styles.detailsTitle}>Genero</Text>
-          <Text style={styles.detailsDescription}>{handleGender(cachracter.gender)}</Text>
+          <Text style={styles.detailsDescription}>
+            {handleGender(cachracter.gender)}
+          </Text>
         </View>
         <TouchableOpacity
-          style={ !favorite ? styles.favorite : styles.isfavorite }
+          style={!favorite ? styles.favorite : styles.isfavorite}
           onPress={() => handleFavorite()}
         >
           <Text style={styles.favoriteText}>
-            {
-              !favorite ? 'Favoritar' : 'Remover favorito'
-            }
+            {!favorite ? "Favoritar" : "Remover favorito"}
           </Text>
         </TouchableOpacity>
       </View>
