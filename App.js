@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './src/screens/Home';
 import Details from './src/screens/Details';
 import Favorites from './src/screens/Favorites';
+import Login from './src/screens/Login';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,10 @@ export default function App() {
           <Drawer.Screen
             name="Favorites"
             component={Favorites}
+          />
+          <Drawer.Screen
+            name="Login"
+            component={Login}
           />
           <Drawer.Screen
             name="Details"
